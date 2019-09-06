@@ -1,0 +1,70 @@
+import elementos.*
+import compuestos.*
+
+describe "Test de Química" {
+
+	var orbitalHidrogeno = new Orbital()
+	var hidrogeno = new Elemento()
+	var orbitalOxigenoNivel1 = new Orbital()
+	var orbitalOxigenoNivel2 = new Orbital()
+	var oxigeno = new Elemento()
+	var componenteHidrogeno = new Componente()
+	var componenteOxigeno = new Componente()
+	var agua = new Compuesto()
+	var orbitalHelio = new Orbital()
+	var helio = new Elemento()
+
+	fixture {
+		orbitalHidrogeno.nivel(1)
+		orbitalHidrogeno.capacidadMaxima(2)
+		orbitalHidrogeno.electronesOcupados(1)
+		
+		hidrogeno.nombre("Hidrogeno")
+		hidrogeno.simbolo("H")
+		hidrogeno.esGasNoble(false)
+		hidrogeno.orbitales([ orbitalHidrogeno ])
+		
+		orbitalOxigenoNivel1.nivel(1)
+		orbitalOxigenoNivel1.capacidadMaxima(2)
+		orbitalOxigenoNivel1.electronesOcupados(2)
+		
+		orbitalOxigenoNivel2.nivel(2)
+		orbitalOxigenoNivel2.capacidadMaxima(8)
+		orbitalOxigenoNivel2.electronesOcupados(6)
+		
+		oxigeno.simbolo("O")
+		oxigeno.esGasNoble(false)
+		oxigeno.orbitales([ orbitalOxigenoNivel1, orbitalOxigenoNivel2 ])
+		
+		componenteHidrogeno.cantidad(2)
+		componenteHidrogeno.sustancia(hidrogeno)
+		
+		componenteOxigeno.cantidad(1)
+		componenteOxigeno.sustancia(oxigeno)
+		
+		agua.componentes([ componenteHidrogeno, componenteOxigeno ])
+		
+		orbitalHelio.nivel(1)
+		orbitalHelio.capacidadMaxima(2)
+		orbitalHelio.electronesOcupados(2)
+		
+		helio.nombre("Helio")
+		helio.simbolo("He")
+		helio.esGasNoble(true)
+		helio.orbitales([ orbitalHelio ])
+	}
+
+	test "La representación del agua debería ser (H2O)" {
+		assert.equals("(H2O)", agua.formula())
+	}
+
+	test "El Helio debería estar estable" {
+		assert.that(helio.estaEstable())
+	}
+
+	test "El agua no debería ser elegante" {
+		assert.notThat(agua.esElegante())
+	}
+
+}
+
